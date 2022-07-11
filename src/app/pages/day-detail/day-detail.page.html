@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>DETAIL</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pane">
+
+  <ion-card *ngIf="!theresInternet"
+  class="card-alert">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-subtitle style="color: white;">
+              THERE IS NO INTERNET CONECTION
+              <br>
+              YOU ARE WORKING WITH THE LOCAL VERSION
+              <br>
+              <ng-container 
+              *ngIf="this.lastUpdate !== undefined && this.lastUpdate !== null && this.lastUpdate.length > 0" >
+                Information stored on {{ this.lastUpdate }} 
+              </ng-container>
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <ion-card class="card-info">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card-header >
+            <ion-card-subtitle style="color: white;">DAY DETAIL </ion-card-subtitle>
+            <ion-label *ngIf="currentBitcoin !== undefined">
+              <p class="txt-subtitle">{{ currentBitcoin.last_updated_at }}</p>
+            </ion-label>
+
+            <div class="ion-margin-top">
+              <ion-label>
+                <h4 class="txt-title" style="color: orangered;">BITCOIN - BTC/USD</h4>
+              </ion-label>
+            </div>
+            <ion-card-title *ngIf="currentBitcoin !== undefined" style="color: white;">
+              USD {{ currentBitcoin.usd |currency:'USD':'symbol-narrow':'3.0' }}
+            </ion-card-title>
+
+            <div class="ion-margin-top">
+              <ion-label>
+                <h4 class="txt-title" style="color: orangered;">BITCOIN - BTC/EUR</h4>
+              </ion-label>
+            </div>
+            <ion-card-title *ngIf="currentBitcoin !== undefined" style="color: white;">
+              EUR {{ currentBitcoin.eur |currency:'EUR':'symbol-narrow':'3.0' }}
+            </ion-card-title>
+
+            <div class="ion-margin-top">
+              <ion-label>
+                <h4 class="txt-title" style="color: orangered;">BITCOIN - BTC/COP</h4>
+              </ion-label>
+            </div>
+            <ion-card-title *ngIf="currentBitcoin !== undefined" style="color: white;">
+              COP {{ currentBitcoin.cop |currency:'COP':'symbol-narrow':'3.0' }}
+            </ion-card-title>
+
+          </ion-card-header>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+  </ion-card>
+
+
+
+</ion-content>

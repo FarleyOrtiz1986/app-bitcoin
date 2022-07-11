@@ -1,0 +1,135 @@
+<ion-header [translucent]="true"  >
+  <ion-toolbar >
+    <ion-title >
+      BITCOIN
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="pane">
+
+  <ion-card *ngIf="!theresInternet"
+  class="card-alert">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-subtitle style="color: white;">
+              THERE IS NO INTERNET CONECTION
+              <br>
+              YOU ARE WORKING WITH THE LOCAL VERSION
+              <br>
+              <ng-container 
+              *ngIf="this.lastUpdate !== undefined && this.lastUpdate !== null && this.lastUpdate.length > 0" >
+                Information stored on {{ this.lastUpdate }} 
+              </ng-container>
+              
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+
+<ng-container *ngIf="currentBitcoin !== undefined ; else otherContainer">
+  <ion-card 
+  class="card-info">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card-header [routerLink]="['/day-detail/' + 0]">
+            <ion-card-subtitle style="color: white;">CURRENT VALUE </ion-card-subtitle>
+            <ion-label *ngIf="currentBitcoin !== undefined">
+              <p class="txt-subtitle">{{ currentBitcoin.last_updated_at }}</p>
+            </ion-label>
+            <div>
+              <ion-label>
+                <h4 class="txt-title" style="color: orangered;">BITCOIN - BTC</h4>
+              </ion-label>
+            </div>
+            <ion-card-title *ngIf="currentBitcoin !== undefined" style="color: white;">
+              USD {{ currentBitcoin.usd |currency:'USD':'symbol-narrow':'3.0' }}
+            </ion-card-title>
+          </ion-card-header>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+  </ion-card>
+</ng-container>
+<ng-template #otherContainer>
+  <ion-card 
+  class="card-info">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card-header >
+            <ion-card-title style="color: orangered;">
+              You must connect to the internet to download the information.
+            </ion-card-title>
+          </ion-card-header>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ng-template>
+ 
+  <ng-container *ngFor="let bitcoin of bitcoinHistory; ; let contIndex = index">
+    <ion-card class="card-info" [routerLink]="['/day-detail/' + contIndex]">
+
+      <ion-grid *ngIf="contIndex != 0">
+        <ion-row>
+          <ion-col>
+            <ion-avatar>
+              <img src="assets/images/bitcoin.png">
+            </ion-avatar>
+          </ion-col>
+
+          <ion-col>
+            <div>
+              <ion-label>
+                <h4 class="txt-title">BITCOIN</h4>
+                <p class="txt-subtitle">BTC</p>
+
+              </ion-label>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              <ion-label>
+                <h1 class="txt-title">{{ bitcoin.usd |currency:'CAD':'symbol-narrow':'3.0' }} </h1>
+                <p class="txt-subtitle">USD</p>
+              </ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label>
+              <p class="txt-subtitle">{{ bitcoin.last_updated_at }}</p>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+
+  </ng-container>
+
+</ion-content>
+
+<!-- [fullscreen]="true" -->
+
+
+<!-- <ion-header collapse="condense">
+  <ion-toolbar>
+    <ion-title size="large">APP Bitcoin</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div id="container">
+  <strong>Ready to create an app?</strong>
+  <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+</div> -->
